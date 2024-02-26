@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 const port = 3000;
 
-const openai = new OpenAI({ apiKey: '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' });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 app.get('/api/get-question/:test', async (req, res) => {
   const testSelected = req.params.test;
