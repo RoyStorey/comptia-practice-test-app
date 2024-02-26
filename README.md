@@ -16,10 +16,12 @@ git clone https://github.com/YourUsername/compita-practice-test-app.git
 
 # Navigate to the app backend directory
 npm i
+
 node /app.js
 
 # In a separate terminal, navigate to the app frontend directory
 npm i
+
 npm run dev
 
 Usage
