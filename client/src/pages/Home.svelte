@@ -16,7 +16,7 @@
     console.log(userAnswer);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/post-user-answer/",
+        "http://3.82.69.18:3000/api/post-user-answer/",
         {
           question: currentQuestion,
           answer: userAnswer,
@@ -32,7 +32,7 @@
   async function getQuestion() {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/get-question/${currentTest}/`,
+        `http://3.82.69.18:3000/api/get-question/${currentTest}/`,
       );
       console.log(response.data.data);
       currentQuestion = response.data.data;
