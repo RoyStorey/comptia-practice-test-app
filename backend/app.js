@@ -1,6 +1,7 @@
 import express from 'express';
 import OpenAI from 'openai';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 const app = express();
 app.use(cors());
@@ -9,9 +10,17 @@ const port = 3000;
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-app.get('/api/get-question/:test', async (req, res) => {
+app.get('/api/get-question/:test/:objective', async (req, res) => {
   const testSelected = req.params.test;
-  const query = `Give me one question from the ${testSelected} exam, and do not give me the answer. Do not give me multiple choice questions. I want a question that requires a written response. Err lightly on the side of correct.`;
+  const objectiveSelected = req.params.objective;
+  let query = '';
+
+  if (objectiveSelected) {
+    query = `Give me one question from the ${testSelected} exam that is related to ${objectiveSelected}, and do not give me the answer. Do not give me multiple choice questions. I want a question that requires a written response. Err lightly on the side of correct.`;
+  } else {
+    query = `Give me one question from the ${testSelected} exam, and do not give me the answer. Do not give me multiple choice questions. I want a question that requires a written response. Err lightly on the side of correct.`;
+  }
+
   console.log('Request received')
   const stream = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",

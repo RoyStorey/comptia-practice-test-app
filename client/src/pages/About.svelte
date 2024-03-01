@@ -17,7 +17,8 @@
   </p>
   <p>
     The source code for this app can be found on{" "}
-    <a href="https://github.com/RoyStorey/practice-exam-app/">GitHub.</a>
+    <a href="https://github.com/RoyStorey/comptia-practice-test-app/">GitHub.</a
+    >
   </p>
   <p>
     This app was created by{" "}
