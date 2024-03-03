@@ -16,7 +16,9 @@
   }
 
   async function handleSubmitAnswer() {
-    let userAnswer = document.getElementById("user-answer").value;
+    let userAnswer = (
+      document.getElementById("user-answer") as HTMLTextAreaElement
+    ).value;
     console.log(userAnswer);
     gptFeedback = "Loading...";
     try {
@@ -43,7 +45,8 @@
       console.log(response.data.data);
       currentQuestion = response.data.data;
       gptFeedback = "";
-      document.getElementById("user-answer").value = "";
+      (document.getElementById("user-answer") as HTMLTextAreaElement).value =
+        "";
     } catch (error) {
       console.error("Error:", error);
     }
@@ -153,20 +156,5 @@
   button:hover {
     z-index: 3;
     filter: drop-shadow(0 0 2em #d8293521);
-  }
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
   }
 </style>
