@@ -11,10 +11,6 @@
   let currentQuestion: string = "";
   let gptFeedback: string = "";
 
-  function changeTest(event: any) {
-    currentTest = event.target.value;
-  }
-
   async function handleSubmitAnswer() {
     let userAnswer = (
       document.getElementById("user-answer") as HTMLTextAreaElement
@@ -60,6 +56,10 @@
 
   let currentObjective = "No objective selected...";
 
+  function changeTest(event: any) {
+    currentTest = event.target.value;
+  }
+
   function handleObjectiveChange(event: any) {
     currentObjective = event.detail.objective;
   }
@@ -100,16 +100,31 @@
       <button on:click={handleSubmitAnswer}>Submit Answer</button>
       <button on:click={getQuestion}>Generate New Question</button>
       <div class="exams-line">
-        <button id="A+" value="CompTIA A+" on:click={changeTest}
-          >CompTIA A+</button
+        <button
+          id="A+"
+          value="CompTIA A+"
+          on:click={changeTest}
+          class:selectedTest={currentTest == "CompTIA A+"}>CompTIA A+</button
         >
-        <button id="Net+" value="CompTIA Network+" on:click={changeTest}
+        <button
+          id="Net+"
+          value="CompTIA Network+"
+          on:click={changeTest}
+          class:selectedTest={currentTest == "CompTIA Network+"}
           >CompTIA Network+</button
         >
-        <button id="Sec+" value="CompTIA Security+" on:click={changeTest}
+        <button
+          id="Sec+"
+          value="CompTIA Security+"
+          on:click={changeTest}
+          class:selectedTest={currentTest == "CompTIA Security+"}
           >CompTIA Security+</button
         >
-        <button id="Linux+" value="CompTIA Linux+" on:click={changeTest}
+        <button
+          id="Linux+"
+          value="CompTIA Linux+"
+          on:click={changeTest}
+          class:selectedTest={currentTest == "CompTIA Linux+"}
           >CompTIA Linux+</button
         >
       </div>
@@ -141,7 +156,6 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 2rem;
-    padding-block: 4rem;
     width: 70dvw;
   }
   h3 {
@@ -156,5 +170,11 @@
   button:hover {
     z-index: 3;
     filter: drop-shadow(0 0 2em #d8293521);
+  }
+  .selectedTest {
+    background-color: #d82934;
+    color: white;
+    border: none;
+    border-radius: 5px;
   }
 </style>

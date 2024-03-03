@@ -7,8 +7,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const port = 3000;
+dotenv.config();
 
-const openai = new OpenAI({ apiKey: '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' });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 app.get('/api/get-question/:test/:objective', async (req, res) => {
   const testSelected = req.params.test;

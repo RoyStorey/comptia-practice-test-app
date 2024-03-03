@@ -1,9 +1,11 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  let currentObjective = "No objective selected...";
 
   const dispatch = createEventDispatcher();
 
   function setObjective(objective: string) {
+    currentObjective = objective;
     dispatch("nut", { objective });
   }
 </script>
@@ -15,27 +17,39 @@
       <button
         on:click={() => {
           setObjective("Mobile Devices");
-        }}>Mobile Devices</button
+        }}
+        class:selectedObjective={currentObjective == "Mobile Devices"}
+        >Mobile Devices</button
       >
       <button
         on:click={() => {
           setObjective("Networking");
-        }}>Networking</button
+        }}
+        class:selectedObjective={currentObjective == "Networking"}
+        >Networking</button
       >
       <button
         on:click={() => {
           setObjective("Hardware");
-        }}>Hardware</button
+        }}
+        class:selectedObjective={currentObjective == "Hardware"}
+        >Hardware</button
       >
       <button
         on:click={() => {
           setObjective("Virtualization and Cloud Computing");
-        }}>Virtualization and Cloud Computing</button
+        }}
+        class:selectedObjective={currentObjective ==
+          "Virtualization and Cloud Computing"}
+        >Virtualization and Cloud Computing</button
       >
       <button
         on:click={() => {
           setObjective("Hardware and Network Troubleshooting");
-        }}>Hardware and Network Troubleshooting</button
+        }}
+        class:selectedObjective={currentObjective ==
+          "Hardware and Network Troubleshooting"}
+        >Hardware and Network Troubleshooting</button
       >
     </ol>
   </div>
@@ -45,28 +59,42 @@
       <button
         on:click={() => {
           setObjective("Operating Systems");
-        }}>Operating Systems</button
+        }}
+        class:selectedObjective={currentObjective == "Operating Systems"}
+        >Operating Systems</button
       >
       <button
         on:click={() => {
           setObjective("Security");
-        }}>Security</button
+        }}
+        class:selectedObjective={currentObjective == "Security"}
+        >Security</button
       >
       <button
         on:click={() => {
           setObjective("Software Troubleshooting");
-        }}>Software Troubleshooting</button
+        }}
+        class:selectedObjective={currentObjective == "Software Troubleshooting"}
+        >Software Troubleshooting</button
       >
       <button
         on:click={() => {
           setObjective("Operational Procedures");
-        }}>Operational Procedures</button
+        }}
+        class:selectedObjective={currentObjective == "Operational Procedures"}
+        >Operational Procedures</button
       >
     </ol>
   </div>
 </div>
 
 <style>
+  .selectedObjective {
+    background-color: #d82934;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
   .objective-holder {
     /* background: red; */
     display: flex;
