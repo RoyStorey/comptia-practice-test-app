@@ -23,7 +23,7 @@
     gptFeedback = "Loading...";
     try {
       const response = await axios.post(
-        "http://3.82.69.18:3000/api/post-user-answer/",
+        `${import.meta.env.VITE_SERVER}/api/post-user-answer/`,
         {
           question: currentQuestion,
           answer: userAnswer,
@@ -40,7 +40,7 @@
     currentQuestion = "Loading...";
     try {
       const response = await axios.get(
-        `http://3.82.69.18:3000/api/get-question/${currentTest}/${currentObjective}`,
+        `${import.meta.env.VITE_SERVER}/api/get-question/${currentTest}/${currentObjective}`,
       );
       console.log(response.data.data);
       currentQuestion = response.data.data;
