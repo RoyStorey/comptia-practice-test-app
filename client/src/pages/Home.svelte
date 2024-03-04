@@ -132,7 +132,7 @@
   .user-answer {
     width: 100%;
     margin: 1em 0;
-    background-color: #1a1a1a;
+    /* background-color: #1a1a1a; */
     /* background: transparent; */
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   }
