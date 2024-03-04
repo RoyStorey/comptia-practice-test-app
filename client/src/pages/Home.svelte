@@ -40,7 +40,7 @@
     currentQuestion = "Loading...";
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/get-question/${currentTest}/${currentObjective}`,
+        `http://3.82.69.18:3000/api/get-question/${currentTest}/${currentObjective}`,
       );
       console.log(response.data.data);
       currentQuestion = response.data.data;
