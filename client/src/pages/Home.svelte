@@ -9,11 +9,9 @@
 
   let currentTest: string = "CompTIA A+";
   let currentQuestion: string = "";
+  let currentObjective = "No objective selected...";
   let gptFeedback: string = "";
 
-  function changeTest(event: any) {
-    currentTest = event.target.value;
-  }
 
   async function handleSubmitAnswer() {
     let userAnswer = (
@@ -52,16 +50,13 @@
     }
   }
 
-  let gptConversation = {
-    gptQuestion: "",
-    userAnswer: "",
-    gptFeedback: "",
-  };
-
-  let currentObjective = "No objective selected...";
-
   function handleObjectiveChange(event: any) {
     currentObjective = event.detail.objective;
+  }
+
+  function changeTest(event: any) {
+    currentObjective = "No objective selected..."
+    currentTest = event.target.value;
   }
 </script>
 
@@ -100,16 +95,16 @@
       <button on:click={handleSubmitAnswer}>Submit Answer</button>
       <button on:click={getQuestion}>Generate New Question</button>
       <div class="exams-line">
-        <button id="A+" value="CompTIA A+" on:click={changeTest}
+        <button id="A+" value="CompTIA A+" on:click={changeTest} class:selected={currentTest === "CompTIA A+"}
           >CompTIA A+</button
         >
-        <button id="Net+" value="CompTIA Network+" on:click={changeTest}
+        <button id="Net+" value="CompTIA Network+" on:click={changeTest} class:selected={currentTest === "CompTIA Network+"}
           >CompTIA Network+</button
         >
-        <button id="Sec+" value="CompTIA Security+" on:click={changeTest}
+        <button id="Sec+" value="CompTIA Security+" on:click={changeTest} class:selected={currentTest === "CompTIA Security+"}
           >CompTIA Security+</button
         >
-        <button id="Linux+" value="CompTIA Linux+" on:click={changeTest}
+        <button id="Linux+" value="CompTIA Linux+" on:click={changeTest} class:selected={currentTest === "CompTIA Linux+"}
           >CompTIA Linux+</button
         >
       </div>
@@ -118,6 +113,10 @@
 </main>
 
 <style>
+  .selected {
+    background-color: #d82934;
+    color: white;
+  }
   .home-query-section {
     display: flex;
     flex-direction: column;
@@ -141,7 +140,6 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 2rem;
-    padding-block: 4rem;
     width: 70dvw;
   }
   h3 {

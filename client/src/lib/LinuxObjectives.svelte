@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher} from "svelte";
 
   const dispatch = createEventDispatcher();
+  let selectedObjective = '';
 
   function setObjective(objective: string) {
+    selectedObjective = objective;
     dispatch("nut", { objective });
   }
 </script>
@@ -12,31 +14,13 @@
   <div>
     <h4>XK0-004 (Linux+) Exam Objectives</h4>
     <ol>
-      <button
-        on:click={() => {
-          setObjective("Hardware and System Configuration");
-        }}>Hardware and System Configuration</button
-      >
-      <button
-        on:click={() => {
-          setObjective("System Operation and Maintenance");
-        }}>System Operation and Maintenance</button
-      >
-      <button
-        on:click={() => {
-          setObjective("Security");
-        }}>Security</button
-      >
-      <button
-        on:click={() => {
-          setObjective("Linux Troubleshooting and Diagnostics");
-        }}>Linux Troubleshooting and Diagnostics</button
-      >
-      <button
-        on:click={() => {
-          setObjective("Automation and Scripting");
-        }}>Automation and Scripting</button
-      >
+      {#each ["Hardware and System Configuration", "System Operation and Maintenance", "Security", "Linux Troubleshooting and Diagnostics", "Automation and Scripting"] as objective}
+        <button
+          class:selected={selectedObjective === objective}
+          on:click={() => setObjective(objective)}>
+          {objective}
+        </button>
+      {/each}
     </ol>
   </div>
 </div>
@@ -58,5 +42,9 @@
   }
   ol button {
     margin: 0.5em;
+  }
+  .selected {
+    background-color: #d82934;
+    color: white;
   }
 </style>

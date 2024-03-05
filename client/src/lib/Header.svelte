@@ -13,13 +13,7 @@
 </header>
 
 <style>
-  a {
-    color: rgba(255, 255, 255, 0.87);
-  }
-  a:hover {
-    color: #d82934;
-    filter: drop-shadow(0 0 2em #d82934);
-  }
+
   header {
     display: flex;
     justify-content: space-between;
@@ -32,7 +26,4 @@
     gap: 1em;
   }
 
-  nav a {
-    text-decoration: none;
-  }
 </style>

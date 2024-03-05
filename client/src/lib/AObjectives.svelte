@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher} from "svelte";
 
   const dispatch = createEventDispatcher();
+  let selectedObjective = '';
 
   function setObjective(objective: string) {
+    selectedObjective = objective;
     dispatch("nut", { objective });
   }
 </script>
@@ -13,62 +15,61 @@
     <h4>220-1001 (Core 1) Exam Objectives</h4>
     <ol>
       <button
-        on:click={() => {
-          setObjective("Mobile Devices");
-        }}>Mobile Devices</button
-      >
+        class:selected={selectedObjective === 'Mobile Devices'}
+        on:click={() => setObjective("Mobile Devices")}>
+        Mobile Devices
+      </button>
       <button
-        on:click={() => {
-          setObjective("Networking");
-        }}>Networking</button
-      >
+        class:selected={selectedObjective === 'Networking'}
+        on:click={() => setObjective("Networking")}>
+        Networking
+      </button>
       <button
-        on:click={() => {
-          setObjective("Hardware");
-        }}>Hardware</button
-      >
+        class:selected={selectedObjective === 'Hardware'}
+        on:click={() => setObjective("Hardware")}>
+        Hardware
+      </button>
       <button
-        on:click={() => {
-          setObjective("Virtualization and Cloud Computing");
-        }}>Virtualization and Cloud Computing</button
-      >
+        class:selected={selectedObjective === 'Virtualization and Cloud Computing'}
+        on:click={() => setObjective("Virtualization and Cloud Computing")}>
+        Virtualization and Cloud Computing
+      </button>
       <button
-        on:click={() => {
-          setObjective("Hardware and Network Troubleshooting");
-        }}>Hardware and Network Troubleshooting</button
-      >
+        class:selected={selectedObjective === 'Hardware and Network Troubleshooting'}
+        on:click={() => setObjective("Hardware and Network Troubleshooting")}>
+        Hardware and Network Troubleshooting
+      </button>
     </ol>
   </div>
   <div>
     <h4>220-1002 (Core 2) Exam Objectives:</h4>
     <ol>
       <button
-        on:click={() => {
-          setObjective("Operating Systems");
-        }}>Operating Systems</button
-      >
+        class:selected={selectedObjective === 'Operating Systems'}
+        on:click={() => setObjective("Operating Systems")}>
+        Operating Systems
+      </button>
       <button
-        on:click={() => {
-          setObjective("Security");
-        }}>Security</button
-      >
+        class:selected={selectedObjective === 'Security'}
+        on:click={() => setObjective("Security")}>
+        Security
+      </button>
       <button
-        on:click={() => {
-          setObjective("Software Troubleshooting");
-        }}>Software Troubleshooting</button
-      >
+        class:selected={selectedObjective === 'Software Troubleshooting'}
+        on:click={() => setObjective("Software Troubleshooting")}>
+        Software Troubleshooting
+      </button>
       <button
-        on:click={() => {
-          setObjective("Operational Procedures");
-        }}>Operational Procedures</button
-      >
+        class:selected={selectedObjective === 'Operational Procedures'}
+        on:click={() => setObjective("Operational Procedures")}>
+        Operational Procedures
+      </button>
     </ol>
   </div>
 </div>
 
 <style>
   .objective-holder {
-    /* background: red; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -84,5 +85,9 @@
   }
   ol button {
     margin: 0.5em;
+  }
+  .selected {
+    background-color: #d82934;
+    color: white;
   }
 </style>
