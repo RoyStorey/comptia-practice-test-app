@@ -18,19 +18,28 @@ const port = 3000;
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 function getCorrectnessFromFeedback(feedback) {
-  feedback = feedback.toLowerCase();
+  const lowerFeedback = feedback.toLowerCase();
 
-  if (feedback.includes(" partially ")) {
+  if (lowerFeedback.includes("partially correct")) {
     return "Partially Correct";
-  } else if (feedback.includes(" correct ")) {
+  } else if (
+    lowerFeedback.includes("correct") &&
+    !lowerFeedback.includes("incorrect")
+  ) {
     return "Correct";
-  } else if (feedback.includes(" incorrect ")) {
+  } else if (lowerFeedback.includes("incorrect")) {
     return "Incorrect";
   } else {
     return "Unsure";
   }
 }
-
+function formatGPTPrompt(objectiveSelected, testSelected) {
+  if (objectiveSelected != "No objective selected...") {
+    return `Give me one question from the ${testSelected} exam that is related to ${objectiveSelected}, and do not give me the answer. Do not give me multiple choice questions. I want a question that requires a written response. Err lightly on the side of correct.`;
+  } else {
+    return `Give me one question from the ${testSelected} exam, and do not give me the answer. Do not give me multiple choice questions. I want a question that requires a written response. Err lightly on the side of correct.`;
+  }
+}
 let conversation = {
   userid: "",
   test: "",
@@ -45,13 +54,7 @@ let conversation = {
 app.get("/api/get-question/:test/:objective", async (req, res) => {
   const testSelected = req.params.test;
   const objectiveSelected = req.params.objective;
-  let query = "";
-
-  if (objectiveSelected != "No objective selected...") {
-    query = `Give me one question from the ${testSelected} exam that is related to ${objectiveSelected}, and do not give me the answer. Do not give me multiple choice questions. I want a question that requires a written response. Err lightly on the side of correct.`;
-  } else {
-    query = `Give me one question from the ${testSelected} exam, and do not give me the answer. Do not give me multiple choice questions. I want a question that requires a written response. Err lightly on the side of correct.`;
-  }
+  let query = formatGPTPrompt(objectiveSelected, testSelected);
 
   const stream = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
