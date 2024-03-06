@@ -3,6 +3,7 @@ import OpenAI from "openai";
 import cors from "cors";
 import dotenv from "dotenv";
 import { rateLimit } from "express-rate-limit";
+import postgreSQLClient from "./postgres.js";
 
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
@@ -15,6 +16,7 @@ app.use(limiter);
 app.use(cors());
 app.use(express.json());
 const port = 3000;
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 function getCorrectnessFromFeedback(feedback) {
@@ -54,11 +56,11 @@ let conversation = {
 app.get("/api/get-question/:test/:objective", async (req, res) => {
   const testSelected = req.params.test;
   const objectiveSelected = req.params.objective;
-  let query = formatGPTPrompt(objectiveSelected, testSelected);
+  let gptQuery = formatGPTPrompt(objectiveSelected, testSelected);
 
   const stream = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: query }],
+    messages: [{ role: "user", content: gptQuery }],
     stream: true,
   });
   let response = "";
@@ -69,16 +71,18 @@ app.get("/api/get-question/:test/:objective", async (req, res) => {
 
   conversation.test = testSelected;
   conversation.objective = objectiveSelected;
-  conversation.query = query;
+  conversation.query = gptQuery;
   conversation.gptQuestion = response;
 });
 
 app.post("/api/post-user-answer", async (req, res) => {
+  const client = await postgreSQLClient.connect();
+
   const { question, answer } = req.body;
-  const query = `The question is: ${question}. The user's answer is: ${answer}. is this Correct | Incorrect | Partially Correct? if incorrect or partially correct, what is the correct answer, and provide feedback?`;
+  let gptQuery = `The question is: ${question}. The user's answer is: ${answer}. is this Correct | Incorrect | Partially Correct? if incorrect or partially correct, what is the correct answer, and provide feedback?`;
   const stream = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: query }],
+    messages: [{ role: "user", content: gptQuery }],
     stream: true,
   });
   let response = "";
@@ -91,7 +95,25 @@ app.post("/api/post-user-answer", async (req, res) => {
   conversation.userAnswer = answer;
   conversation.gptFeedback = response;
 
-  console.log(conversation);
+  try {
+    const dbquery = `
+    INSERT INTO conversations (userid, test, objective, query, gptquestion, useranswer, correctness, gptfeedback)
+    VALUES ('${conversation.userid}', '${conversation.test}', '${conversation.objective}', '${conversation.query}', '${conversation.gptQuestion}', '${conversation.userAnswer}', '${conversation.correctness}', '${conversation.gptFeedback}');
+    `;
+    console.log(dbquery);
+    await client.query(dbquery);
+    client.release();
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/api/get-conversations", async (req, res) => {
+  const client = await postgreSQLClient.connect();
+  const dbquery = "SELECT * FROM conversations";
+  const { rows } = await client.query(dbquery);
+  client.release();
+  res.json({ data: rows });
 });
 
 app.listen(port, () => {

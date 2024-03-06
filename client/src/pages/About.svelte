@@ -6,6 +6,12 @@
   <Header />
   <h1>About</h1>
   <p>
+    The mission of this app is to help people study for CompTIA certification
+    exams by providing a simple and easy-to-use tool for generating practice
+    questions and receiving feedback on answers. Our goal is to provide accurate
+    analytics on the user's progress and to help the user identify areas for improvement.
+  </p>
+  <p>
     This is a simple web app that uses OpenAI's GPT-3.5-Turbo API to generate
     questions for CompTIA certification exams. The user can select which exam
     they are studying for and generate a question to answer. The user can then
