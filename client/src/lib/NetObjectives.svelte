@@ -2,8 +2,10 @@
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
+  let selectedObjective = '';
 
   function setObjective(objective: string) {
+    selectedObjective = objective; 
     dispatch("nut", { objective });
   }
 </script>
@@ -12,38 +14,19 @@
   <div>
     <h4>N10-008 (Network+) Exam Objectives</h4>
     <ol>
-      <button
-        on:click={() => {
-          setObjective("Networking Concepts");
-        }}>Networking Concepts</button
-      >
-      <button
-        on:click={() => {
-          setObjective("Infrastructure");
-        }}>Infrastructure</button
-      >
-      <button
-        on:click={() => {
-          setObjective("Network Operations");
-        }}>Network Operations</button
-      >
-      <button
-        on:click={() => {
-          setObjective("Network Security");
-        }}>Network Security</button
-      >
-      <button
-        on:click={() => {
-          setObjective("Network Troubleshooting and Tools");
-        }}>Network Troubleshooting and Tools</button
-      >
+      {#each ["Networking Concepts", "Infrastructure", "Network Operations", "Network Security", "Network Troubleshooting and Tools"] as objective}
+        <button
+          class:selected={selectedObjective === objective}
+          on:click={() => setObjective(objective)}>
+          {objective}
+        </button>
+      {/each}
     </ol>
   </div>
 </div>
 
 <style>
   .objective-holder {
-    /* background: red; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -59,5 +42,9 @@
   }
   ol button {
     margin: 0.5em;
+  }
+  .selected {
+    background-color: #d82934;
+    color: white;
   }
 </style>

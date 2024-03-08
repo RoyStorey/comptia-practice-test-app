@@ -2,9 +2,11 @@
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
+  let selectedObjective = ''; 
 
   function setObjective(objective: string) {
-    dispatch("nut", { objective });
+    selectedObjective = objective; 
+    dispatch("nut", { objective }); 
   }
 </script>
 
@@ -13,42 +15,41 @@
     <h4>SY0-601 (Security+) Exam Objectives</h4>
     <ol>
       <button
-        on:click={() => {
-          setObjective("Threats, Attacks, and Vulnerabilities");
-        }}>Threats, Attacks, and Vulnerabilities</button
-      >
+        class:selected={selectedObjective === "Threats, Attacks, and Vulnerabilities"}
+        on:click={() => setObjective("Threats, Attacks, and Vulnerabilities")}>
+        Threats, Attacks, and Vulnerabilities
+      </button>
       <button
-        on:click={() => {
-          setObjective("Technologies and Tools");
-        }}>Technologies and Tools</button
-      >
+        class:selected={selectedObjective === "Technologies and Tools"}
+        on:click={() => setObjective("Technologies and Tools")}>
+        Technologies and Tools
+      </button>
       <button
-        on:click={() => {
-          setObjective("Architecture and Design");
-        }}>Architecture and Design</button
-      >
+        class:selected={selectedObjective === "Architecture and Design"}
+        on:click={() => setObjective("Architecture and Design")}>
+        Architecture and Design
+      </button>
       <button
-        on:click={() => {
-          setObjective("Identity and Access Management");
-        }}>Identity and Access Management</button
-      >
+        class:selected={selectedObjective === "Identity and Access Management"}
+        on:click={() => setObjective("Identity and Access Management")}>
+        Identity and Access Management
+      </button>
       <button
-        on:click={() => {
-          setObjective("Risk Management");
-        }}>Risk Management</button
-      >
+        class:selected={selectedObjective === "Risk Management"}
+        on:click={() => setObjective("Risk Management")}>
+        Risk Management
+      </button>
       <button
-        on:click={() => {
-          setObjective("Cryptography and PKI");
-        }}>Cryptography and PKI</button
-      >
+        class:selected={selectedObjective === "Cryptography and PKI"}
+        on:click={() => setObjective("Cryptography and PKI")}>
+        Cryptography and PKI
+      </button>
     </ol>
   </div>
 </div>
 
 <style>
   .objective-holder {
-    /* background: red; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -64,5 +65,9 @@
   }
   ol button {
     margin: 0.5em;
+  }
+  .selected {
+    background-color: #d82934;
+    color: white;
   }
 </style>

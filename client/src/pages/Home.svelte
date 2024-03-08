@@ -9,6 +9,7 @@
 
   let currentTest: string = "CompTIA A+";
   let currentQuestion: string = "";
+  let currentObjective = "No objective selected...";
   let gptFeedback: string = "";
 
   async function handleSubmitAnswer() {
@@ -19,7 +20,7 @@
     gptFeedback = "Loading...";
     try {
       const response = await axios.post(
-        "http://3.82.69.18:3000/api/post-user-answer/",
+        `${import.meta.env.VITE_SERVER}/api/post-user-answer/`,
         {
           question: currentQuestion,
           answer: userAnswer,
@@ -36,7 +37,7 @@
     currentQuestion = "Loading...";
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/get-question/${currentTest}/${currentObjective}`,
+        `${import.meta.env.VITE_SERVER}/api/get-question/${currentTest}/${currentObjective}`,
       );
       console.log(response.data.data);
       currentQuestion = response.data.data;
@@ -48,20 +49,13 @@
     }
   }
 
-  let gptConversation = {
-    gptQuestion: "",
-    userAnswer: "",
-    gptFeedback: "",
-  };
-
-  let currentObjective = "No objective selected...";
-
-  function changeTest(event: any) {
-    currentTest = event.target.value;
-  }
-
   function handleObjectiveChange(event: any) {
     currentObjective = event.detail.objective;
+  }
+
+  function changeTest(event: any) {
+    currentObjective = "No objective selected...";
+    currentTest = event.target.value;
   }
 </script>
 
@@ -104,27 +98,27 @@
           id="A+"
           value="CompTIA A+"
           on:click={changeTest}
-          class:selectedTest={currentTest == "CompTIA A+"}>CompTIA A+</button
+          class:selected={currentTest === "CompTIA A+"}>CompTIA A+</button
         >
         <button
           id="Net+"
           value="CompTIA Network+"
           on:click={changeTest}
-          class:selectedTest={currentTest == "CompTIA Network+"}
+          class:selected={currentTest === "CompTIA Network+"}
           >CompTIA Network+</button
         >
         <button
           id="Sec+"
           value="CompTIA Security+"
           on:click={changeTest}
-          class:selectedTest={currentTest == "CompTIA Security+"}
+          class:selected={currentTest === "CompTIA Security+"}
           >CompTIA Security+</button
         >
         <button
           id="Linux+"
           value="CompTIA Linux+"
           on:click={changeTest}
-          class:selectedTest={currentTest == "CompTIA Linux+"}
+          class:selected={currentTest === "CompTIA Linux+"}
           >CompTIA Linux+</button
         >
       </div>
@@ -133,6 +127,10 @@
 </main>
 
 <style>
+  .selected {
+    background-color: #d82934;
+    color: white;
+  }
   .home-query-section {
     display: flex;
     flex-direction: column;
@@ -147,7 +145,7 @@
   .user-answer {
     width: 100%;
     margin: 1em 0;
-    background-color: #1a1a1a;
+    /* background-color: #1a1a1a; */
     /* background: transparent; */
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   }
