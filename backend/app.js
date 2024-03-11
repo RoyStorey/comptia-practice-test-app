@@ -109,11 +109,15 @@ app.post("/api/post-user-answer", async (req, res) => {
 });
 
 app.get("/api/get-conversations", async (req, res) => {
-  const client = await postgreSQLClient.connect();
-  const dbquery = "SELECT * FROM conversations";
-  const { rows } = await client.query(dbquery);
-  client.release();
-  res.json({ data: rows });
+  try {
+    const client = await postgreSQLClient.connect();
+    const dbquery = "SELECT * FROM conversations";
+    const { rows } = await client.query(dbquery);
+    client.release();
+    res.json({ data: rows });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.listen(port, () => {

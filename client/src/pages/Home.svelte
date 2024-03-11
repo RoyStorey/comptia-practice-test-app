@@ -1,7 +1,6 @@
 <script lang="ts">
   import axios from "axios";
   import Header from "../lib/Header.svelte";
-  import Footer from "../lib/Footer.svelte";
   import AObjectives from "../lib/AObjectives.svelte";
   import NetObjectives from "../lib/NetObjectives.svelte";
   import LinuxObjectives from "../lib/LinuxObjectives.svelte";
@@ -11,7 +10,7 @@
   let currentQuestion: string = "";
   let currentObjective = "No objective selected...";
   let gptFeedback: string = "";
-
+  let select: any;
 
   async function handleSubmitAnswer() {
     let userAnswer = (
@@ -55,7 +54,7 @@
   }
 
   function changeTest(event: any) {
-    currentObjective = "No objective selected..."
+    currentObjective = "No objective selected...";
     currentTest = event.target.value;
   }
 </script>
@@ -63,18 +62,39 @@
 <main>
   <Header />
   <div class="page-body">
-    {#if currentTest == "CompTIA Network+"}
-      <NetObjectives on:nut={handleObjectiveChange} />
-    {:else if currentTest == "CompTIA Security+"}
-      <SecObjectives on:nut={handleObjectiveChange} />
-    {:else if currentTest == "CompTIA Linux+"}
-      <LinuxObjectives on:nut={handleObjectiveChange} />
-    {:else if currentTest == "CompTIA A+"}
-      <AObjectives on:nut={handleObjectiveChange} />
-    {/if}
+    <div class="objectives-section">
+      {#if currentTest == "CompTIA Network+"}
+        <NetObjectives on:nut={handleObjectiveChange} />
+      {:else if currentTest == "CompTIA Security+"}
+        <SecObjectives on:nut={handleObjectiveChange} />
+      {:else if currentTest == "CompTIA Linux+"}
+        <LinuxObjectives on:nut={handleObjectiveChange} />
+      {:else if currentTest == "CompTIA A+"}
+        <AObjectives on:nut={handleObjectiveChange} />
+      {/if}
+    </div>
     <div class="home-query-section">
       <h2>
-        Currently studying for <span class="current-test">{currentTest}</span>
+        Currently studying for<br />
+        <select id="testSelect" on:change={changeTest}>
+          <option value="CompTIA A+" selected={currentTest === "CompTIA A+"}
+            >CompTIA A+</option
+          >
+          <option
+            value="CompTIA Network+"
+            selected={currentTest === "CompTIA Network+"}
+            >CompTIA Network+</option
+          >
+          <option
+            value="CompTIA Security+"
+            selected={currentTest === "CompTIA Security+"}
+            >CompTIA Security+</option
+          >
+          <option
+            value="CompTIA Linux+"
+            selected={currentTest === "CompTIA Linux+"}>CompTIA Linux+</option
+          >
+        </select>
       </h2>
       <h3>{currentObjective}</h3>
 
@@ -94,39 +114,18 @@
       <div>{gptFeedback ? gptFeedback : "No feedback yet."}</div>
       <button on:click={handleSubmitAnswer}>Submit Answer</button>
       <button on:click={getQuestion}>Generate New Question</button>
-      <div class="exams-line">
-        <button id="A+" value="CompTIA A+" on:click={changeTest} class:selected={currentTest === "CompTIA A+"}
-          >CompTIA A+</button
-        >
-        <button id="Net+" value="CompTIA Network+" on:click={changeTest} class:selected={currentTest === "CompTIA Network+"}
-          >CompTIA Network+</button
-        >
-        <button id="Sec+" value="CompTIA Security+" on:click={changeTest} class:selected={currentTest === "CompTIA Security+"}
-          >CompTIA Security+</button
-        >
-        <button id="Linux+" value="CompTIA Linux+" on:click={changeTest} class:selected={currentTest === "CompTIA Linux+"}
-          >CompTIA Linux+</button
-        >
-      </div>
     </div>
   </div>
 </main>
 
 <style>
-  .selected {
-    background-color: #d82934;
-    color: white;
-  }
   .home-query-section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
     width: 100%;
-  }
-  .current-test {
-    color: #d82934;
-    filter: drop-shadow(0 0 2em #d82934);
+    flex: 1;
   }
   .user-answer {
     width: 100%;
@@ -139,11 +138,32 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 2rem;
-    width: 70dvw;
+    gap: 4rem;
+  }
+  select {
+    all: unset;
+    color: #d82934;
+    width: min-content;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: border-color 0.25s;
+    border: 1px solid transparent;
+    width: fit-content;
+  }
+  select:hover {
+    cursor: pointer;
+    filter: drop-shadow(0 0 2em #d8293521);
+    border: 1px solid #d82934;
+  }
+  option {
+    color: #d82934;
+    font-weight: 300;
+    border: none;
+    font-size: 20px;
   }
   h3 {
     font-weight: 300;
+    margin: 0px;
   }
   h2 {
     margin-bottom: 0px;
@@ -154,5 +174,10 @@
   button:hover {
     z-index: 3;
     filter: drop-shadow(0 0 2em #d8293521);
+  }
+  .objectives-section {
+    display: flex;
+    flex: 1;
+    max-width: 30%;
   }
 </style>

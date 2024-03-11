@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { createEventDispatcher} from "svelte";
+  import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
-  let selectedObjective = '';
+  let selectedObjective = "";
 
   function setObjective(objective: string) {
     selectedObjective = objective;
@@ -17,7 +17,8 @@
       {#each ["Hardware and System Configuration", "System Operation and Maintenance", "Security", "Linux Troubleshooting and Diagnostics", "Automation and Scripting"] as objective}
         <button
           class:selected={selectedObjective === objective}
-          on:click={() => setObjective(objective)}>
+          on:click={() => setObjective(objective)}
+        >
           {objective}
         </button>
       {/each}
@@ -29,10 +30,11 @@
   .objective-holder {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 1rem;
-    width: 40%;
     align-self: center;
+    height: 100%;
+    justify-content: center;
+    flex: 1;
   }
   ol {
     text-align: left;

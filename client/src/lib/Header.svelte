@@ -13,17 +13,17 @@
 </header>
 
 <style>
-
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1em;
+    margin: 0px auto;
+    border-bottom: 1px solid #d3d3d3;
   }
 
   nav {
     display: flex;
     gap: 1em;
   }
-
 </style>
