@@ -19,7 +19,7 @@
     align-items: center;
     padding: 1em;
     margin: 0px auto;
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 1px solid #333333;
   }
 
   nav {
