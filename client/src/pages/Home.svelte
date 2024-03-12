@@ -142,7 +142,7 @@
   }
   select {
     all: unset;
-    color: #d82934;
+    color: #d7c028;
     width: min-content;
     padding: 1rem;
     border-radius: 8px;
@@ -153,10 +153,10 @@
   select:hover {
     cursor: pointer;
     filter: drop-shadow(0 0 2em #d8293521);
-    border: 1px solid #d82934;
+    border: 1px solid #d7c028;
   }
   option {
-    color: #d82934;
+    color: #d7c028;
     font-weight: 300;
     border: none;
     font-size: 20px;

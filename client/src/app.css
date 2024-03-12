@@ -44,7 +44,7 @@ h2 {
 }
 
 span {
-  color: #d82934;
+  color: #d7c028;
 }
 
 
@@ -68,13 +68,13 @@ button {
 }
 
 button:hover {
-  border-color: #d82934;
+  border-color: #d7c028;
 }
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-  color: #d82934;
+  color: #d7c028;
 }
 
 @media (prefers-color-scheme: light) {

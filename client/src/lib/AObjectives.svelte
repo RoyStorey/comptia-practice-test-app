@@ -99,7 +99,7 @@
     margin: 0.5em;
   }
   .selected {
-    background-color: #d82934;
+    background-color: #d7c028;
     color: white;
   }
 </style>
