@@ -46,7 +46,7 @@
     margin: 0.5em;
   }
   .selected {
-    background-color: #d7c028;
+    background-color: #d82934;
     color: white;
   }
 </style>

@@ -22,34 +22,30 @@
         Threats, Attacks, and Vulnerabilities
       </button>
       <button
-        class:selected={selectedObjective === "Technologies and Tools"}
-        on:click={() => setObjective("Technologies and Tools")}
-      >
-        Technologies and Tools
-      </button>
-      <button
         class:selected={selectedObjective === "Architecture and Design"}
         on:click={() => setObjective("Architecture and Design")}
       >
         Architecture and Design
       </button>
       <button
-        class:selected={selectedObjective === "Identity and Access Management"}
-        on:click={() => setObjective("Identity and Access Management")}
+        class:selected={selectedObjective === "Implementation"}
+        on:click={() => setObjective("Implementation")}
       >
-        Identity and Access Management
+        Implementation
       </button>
       <button
-        class:selected={selectedObjective === "Risk Management"}
-        on:click={() => setObjective("Risk Management")}
+        class:selected={selectedObjective ===
+          "Operations and Incident Response"}
+        on:click={() => setObjective("Operations and Incident Response")}
       >
-        Risk Management
+        Operations and Incident Response
       </button>
       <button
-        class:selected={selectedObjective === "Cryptography and PKI"}
-        on:click={() => setObjective("Cryptography and PKI")}
+        class:selected={selectedObjective ===
+          "Governance, Risk, and Compliance"}
+        on:click={() => setObjective("Governance, Risk, and Compliance")}
       >
-        Cryptography and PKI
+        Governance, Risk, and Compliance
       </button>
     </ol>
   </div>
@@ -75,7 +71,7 @@
     margin: 0.5em;
   }
   .selected {
-    background-color: #d7c028;
+    background-color: #d82934;
     color: white;
   }
 </style>
